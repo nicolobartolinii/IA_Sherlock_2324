@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+		<title>Sherlock - Cancella Caso</title>
+		<link rel="icon" href="https://www.seekpng.com/png/detail/527-5275313_app-icon-detective-conan-avatar.png" type = "image/x-icon">
+		<link href="{{ url_for('static',filename='css/styles.css')}}" rel="stylesheet" />
+		<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+	</head>
+	<nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+		<div>
+			<a class="navbar-brand" href="#page-top">Sherlock</a>
+		</div>
+		<div class="collapse navbar-collapse" id="navbarDropdown">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					  Gestisci Casi
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					  <a class="dropdown-item" href="seleziona_caso">Carica Caso</a>
+					  <a class="dropdown-item" href="cancella_caso">Cancella Caso</a>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="font-weight-bold bg-primary text-white rounded btn btn-lg btn-success" role="button" href="logout">
+						Logout
+					</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<body id="page-top" style="background-color:#edffea">		
+		<header class="masthead text-center">
+          	<div class="container d-flex align-items-center flex-column">
+				<h1><b>CANCELLA CASO</b></h1>
+			</div>		
+		</header>
+		<center>
+			<form action="/cancella_caso2" method="post" id="form1">
+				<label>Seleziona il caso che vuoi eliminare : </label>
+				<select id="nome_caso" name="Caso"></select>
+				<button class="btn btn-lg btn-success" type="submit" form="form1" value="Submit">Elimina</button>
+			</form>
+			<br><br><br><br>
+			<img src="https://3.bp.blogspot.com/-AoK-sxXAU14/UBZuC71TbYI/AAAAAAAAAL4/v_ijwjIiaKg/s1600/conan4.gif" alt="Immagine non trovata"/>
+		</center>
+		<script src="static/scripts/casi2.js"></script>
+	<footer class="bg-secondary footer mt-auto py-5">
+		<h5>2021</h2>
+	</footer>
+</html>
