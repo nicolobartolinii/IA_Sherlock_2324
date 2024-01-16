@@ -1,29 +1,25 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Installazioni:
-# python 3.8
-# gunicorn: consente di attivare il servizio server 
-# swi-prolog: necessario per il corretto funzionamento della libreria pyswip
+# Installazione di dipendenze
 RUN apt update -y && \
-    apt install swi-prolog -y && \
-    apt install python3.8 -y && \ 
-    apt install gunicorn -y
+    apt install -y software-properties-common && \
+    add-apt-repository ppa:swi-prolog/stable && \
+    apt install -y swi-prolog && \
+    apt install -y python3.8 python3-pip
 
-# comando pip per importare le librerie
-RUN apt install python3-pip -y
+# Copia dei file nel container
+COPY . /
 
-# Inserimento del codice e del file testuale contenente elenco di librerie
-COPY . / 
+# Installazione delle dipendenze Python
+RUN pip3 install --upgrade pip && \
+    pip3 install -r requirements.txt
 
-RUN pip3 install --upgrade pip
+# Settaggio della variabile PYTHONUNBUFFERED per evitare problemi di buffering nei log
+ENV PYTHONUNBUFFERED=1
 
-# Installazione di tutte le librerie necessarie equivale a:
-# RUN pip3 install pyswip flask flask_sqlalchemy flask_login flask_wtf wtforms flask_bcrypt
-RUN pip3 install -r requirements.txt
-
-#Cambio della cartella di lavoro per eseguire il comando gunicorn
 WORKDIR /SSIP-w-Python/primaprova
 
-CMD ["gunicorn" , "-w", "3", "-b", "0.0.0.0:8000", "main:app"]
+# Comando per avviare l'applicazione
+CMD ["gunicorn", "-w", "3", "-b", "0.0.0.0:8000", "main:app"]
