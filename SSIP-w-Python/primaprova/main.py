@@ -387,37 +387,39 @@ def visualizza_info_fonte():
 # Per riuscire a lavorare su più casi, si va a modificare il file prolog SSIP-main con il nome del file del caso in questione
 @app.route("/carica_caso",methods=['POST'])
 def carica_caso():
-    caso = request.form['Caso']
-    caso = "casi/"+caso+".pl"
+    data = request.get_json()  # Ottieni dati JSON inviati dalla funzione fetch()
+    caso = data['Caso']
+    caso_path = "casi/" + caso + ".pl"
     #caso += ".pl"
-    if not os.path.exists(caso):
-        open(caso, "w").close()
+    if not os.path.exists(caso_path):
+        open(caso_path, "w").close()
     f=open("SSIP-main.pl", "r")
     lines=f.readlines()
     f.close()
-    lines[0] =":-include('"+caso+"').\n"
+    lines[0] =":-include('"+caso_path+"').\n"
     f = open("SSIP-main.pl", "w")
     f.writelines(lines)
     f.close()
     f1 = open("SSIP-scriviDB.pl", "r")
     lines1 = f1.readlines()
     f1.close()
-    lines1[1] = "tell('" + caso + "'),\n"
+    lines1[1] = "tell('" + caso_path + "'),\n"
     f1 = open("SSIP-scriviDB.pl", "w")
     f1.writelines(lines1)
     f1.close()
-    return redirect('/informazioni_fornite')
+    return jsonify({"success": True, "msg": "Caso caricato con successo"})
 
 #Permette di selezionare un caso esistente da cancellare. Se il caso non esiste ritorna una condizione di errore
 @app.route("/cancella_caso2",methods=['POST'])
 @login_required
 def cancella_caso():
     caso = request.form['Caso']
-    caso = "casi/"+caso+".pl"
-    if not os.path.exists(caso):
-        return render_template('error.html', error='File inesistente')
-    os.remove(caso)
-    return redirect('/cancella_caso')
+    caso_path = f"casi/{caso}.pl"
+    if os.path.exists(caso_path):
+        os.remove(caso_path)
+        return jsonify({"success": True, "msg": "Caso cancellato con successo"})
+    else:
+        return jsonify({"success": False, "msg": "Caso inesistente"})
 
 #Una volta inseriti i tre parametri tramite una POST, richiama process1, che a sua volta chiama aggiungi_info per chiamare
 #la query prolog che aggiunge l'informazione al database prolog
