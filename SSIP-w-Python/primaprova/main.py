@@ -77,6 +77,7 @@ def pl_init():
 def prendi_info():
     prolog.consult("SSIP-main.pl")
     informazioni = [ans["X"] for ans in prolog.query("atomica(X)")]
+    print(informazioni)
     return informazioni
 
 #Cerca nel database prolog del caso in analisi tutte le fonti che hanno fornito informazioni e le restituisce con le relative attendibilità

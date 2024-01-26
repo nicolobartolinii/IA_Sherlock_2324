@@ -3,6 +3,8 @@ const tbody = document.querySelector("tbody");
 const casellaTestoCaseTitle = document.getElementById('caseTitle');
 const pulsanteCreaCaso = document.getElementById('pulsante-crea-caso');
 
+pulsanteCreaCaso.disabled = true;
+
 // Fetch dei dati dal tuo endpoint Flask e chiamata della funzione per popolare la tabella
 fetch("/casijs").then(res => res.json()).then(data => {
     visualizza(data);
