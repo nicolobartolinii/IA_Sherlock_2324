@@ -2,9 +2,8 @@
 const container = document.querySelector("tbody");
 const lista = fetch("/infojs").then(res => res.json()).then(data => visualizza(data));
 
-function visualizza(data)
-{
-            // Converti il dizionario in un array di chiavi
+function visualizza(data) {
+    // Converti il dizionario in un array di chiavi
     const keys = Object.keys(data);
     const lastKeyIndex = keys.length - 1; // Indice dell'ultima chiave
 

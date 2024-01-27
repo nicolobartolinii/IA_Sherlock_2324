@@ -1,15 +1,6 @@
 :- dynamic ass/4.
 :- multifile ass/4.
 
-ass(18, c([], ['Angelo era molto geloso di Christa']), 'Angelo Galassi', ['Angelo era molto geloso di Christa']).
-ass(17, c(['Angelo era molto geloso di Christa'], []), 'Gerda Hodapp', ['Angelo era molto geloso di Christa']).
-ass(16, c(['Angelo Galassi è il compagno di Christa'], []), 'Angelo Galassi', ['Angelo Galassi è il compagno di Christa']).
-ass(15, c(['Si sentivano urla nelle scale'], []), 'Condomini', ['Si sentivano urla nelle scale']).
-ass(14, c(['Gerda non ha sentito niente perchè dormiva'], []), 'Gerda Hodapp', ['Gerda non ha sentito niente perchè dormiva']).
-ass(13, c(['Christa è stata uccisa da 7 coltellate'], []), 'Medico', ['Christa è stata uccisa da 7 coltellate']).
-ass(12, c(['La Fracassi ha trovato Christa distesa a terra nel pianerottolo del quarto piano'], []), 'Francesca Fracassi', ['La Fracassi ha trovato Christa distesa a terra nel pianerottolo del quarto piano']).
-ass(11, c(['La Fracassi ha visto Christa salire le scale'], []), 'Francesca Fracassi', ['La Fracassi ha visto Christa salire le scale']).
-ass(10, c(['La Fracassi ha sentito le urla sulle scale alle 14.30'], []), 'Francesca Fracassi', ['La Fracassi ha sentito le urla sulle scale alle 14.30']).
 ass(9, c([], ['Angelo era molto geloso di Christa']), 'Angelo Galassi', ['Angelo era molto geloso di Christa']).
 ass(8, c(['Angelo era molto geloso di Christa'], []), 'Gerda Hodapp', ['Angelo era molto geloso di Christa']).
 ass(7, c(['Angelo Galassi è il compagno di Christa'], []), 'Angelo Galassi', ['Angelo Galassi è il compagno di Christa']).

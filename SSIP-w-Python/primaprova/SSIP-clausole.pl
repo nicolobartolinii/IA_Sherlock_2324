@@ -18,28 +18,28 @@ clausola_lista(c(P,N),I) :- % per le implicazioni logiche
 cambia_pos_p([],[]) :- !.
 cambia_pos_p([T],[T]) :- !.
 cambia_pos_p([T|C],[T1|C1]) :-
-	concatena([T,' oppure '],T1),
+	concatena([T,' OPPURE '],T1),
 	cambia_pos_p(C,C1).
 
 cambia_pos([],[]) :- !.
 cambia_pos([T],[T]) :- !.%modifica effettuata secondo T al posto di T1
-	%concatena([T,' oppure '],T1).
+	%concatena([T,' OPPURE '],T1).
 cambia_pos([T|C],[T1|C1]) :-
-	concatena([T,' o '],T1),
+	concatena([T,' OPPURE '],T1),
 	cambia_pos(C,C1).
 
 cambia_neg([],[]) :- !.
 cambia_neg([T],[T1]) :- !,
-	concatena([T,' implica '],T1).  % implica al posto di non e' vero che
+	concatena([T,' IMPLICA '],T1).  % implica al posto di non e' vero che
 cambia_neg([T|C],[T1|C1]) :-
-	concatena([T,' o '],T1),
+	concatena([T,' OPPURE '],T1),
 	cambia_neg(C,C1).
 
 cambia_neg1([],[]) :- !.
 cambia_neg1([T],[T1]) :- !,
-	concatena(['Non e\' vero che ',T],T1).   % per la negazione
+	concatena(['NON È VERO CHE ',T],T1).   % per la negazione
 cambia_neg1([T|C],[T1|C1]) :-
-	concatena([T,' o '],T1),
+	concatena([T,' OPPURE '],T1),
 	cambia_neg1(C,C1).
 
 % concatena([a,b,c,d],Atomo) .
