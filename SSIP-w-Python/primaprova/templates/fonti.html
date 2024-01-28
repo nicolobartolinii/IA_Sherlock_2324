@@ -1,116 +1,161 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-	<title>Sherlock - Elenco Fonti </title>
-	<link rel="icon" href="https://www.seekpng.com/png/detail/527-5275313_app-icon-detective-conan-avatar.png" type = "image/x-icon">
-	<link href="{{ url_for('static',filename='css/styles.css')}}" rel="stylesheet" />
-	<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
-			<!-- Google fonts-->
-			<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SHERLOCK - Fonti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"
+            rel="stylesheet"
+    />
 </head>
-	<nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-		<div>
-			<a class="navbar-brand" href="#page-top">Sherlock</a>
-		</div>
-		<div class="collapse navbar-collapse" id="navbarDropdown">
-			<ul class="navbar-nav ml-auto">
-			  <li class="nav-item">
-				<p><a class="nav-link" href="informazioni_fornite">Informazioni fornite </a></p>
-			  </li>
-			  <li class="nav-item">
-				<p><a class="nav-link" href="gestisci_info">Gestisci informazioni</a></p>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link" href="fonti1">Visualizza fonte</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link" href="seleziona_caso">Cambia caso</a>
-			  </li>
-			  <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				  Calcola Universi
-				</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				  <a class="dropdown-item" href="goods_BO">Best Out</a>
-				  <a class="dropdown-item" href="goods_DS">Dempster-Shafter</a>
-				  <a class="dropdown-item" href="goods_media">Media</a>
-				</div>
-			  </li>
-				<li class="nav-item">
-					<a class="font-weight-bold bg-primary text-white rounded btn btn-lg btn-success" role="button" href="logout">
-						Logout
-					</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
-	<body id="page-top" style="background-color:#edffea">
-		<header class="masthead text-center">
-          	<div class="container d-flex align-items-center flex-column">
-				<h1><b>FONTI</b></h1>
-			</div>
-		</header>
-		<center>
-			<h3>
-				<div id="id_fonti">
+<body>
+<div class="flex flex-col min-h-screen bg-gray-100">
+    <header class="flex items-center h-16 px-4 border-b bg-white">
+        <a
+                class="flex items-center gap-2 text-lg font-semibold md:text-base"
+                href="#"
+        >
+            <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-6 h-6"
+            >
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+            </svg>
+            <span>SHERLOCK</span>
+        </a>
+        <nav class="flex items-center ml-auto gap-5 text-md font-medium">
+            <a href="/informazioni_fornite" class="hover:underline">Informazioni principali</a>
+            <a href="/gestisci_info" class="hover:underline">Gestione informazioni</a>
 
-				</div>
-			</h3>
-			<p>
-				<form action = "/info_fonte" method = "post" id = "form2">
-					<label for = "fname">Inserisci una fonte per vedere le sue informazioni:</label>
-					<select id="nomiFonti" name="info_fonte"></select>
-					<input type="submit" value="Cerca"/>
-				</form>
-			</p>
-			{% if view == True %}
-				<header class="masthead text-center">
-					<div class="container d-flex align-items-center flex-column">
-						<h3><b>INFORMAZIONI FORNITE DALLA FONTE : {{fonte_scelta}}</b></h3>
-					</div>
-				</header>
-				<h5>
-					<div id="fonte_desiderata"></div>
-				</h5>
-				<br>
-				<script>
-					var pippo =  '{{fonte_scelta}}';
-					var fonte = {
-						'idfonte': pippo
-						};
+            <button
+                    id="dropdownDefaultButton"
+                    data-dropdown-toggle="dropdown"
+                    class="transition-colors text-emerald-500 border-2 border-emerald-500 hover:bg-emerald-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-md py-2 px-4 text-center inline-flex items-center active:bg-emerald-200"
+                    type="button"
+            >
+                Calcola universi
+                <svg
+                        class="w-2.5 h-2.5 ms-3"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 10 6"
+                >
+                    <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="m1 1 4 4 4-4"></path>
+                </svg>
+            </button>
 
-					fetch('/info_fontejs', {
+            <!-- Dropdown menu -->
+            <div
+                    id="dropdown"
+                    class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
+            >
+                <ul
+                        class="py-2 text-sm text-gray-700"
+                        aria-labelledby="dropdownDefaultButton"
+                >
+                    <li>
+                        <a href="/goods_BO" class="block px-4 py-2 hover:bg-gray-100"
+                        >Best out</a
+                        >
+                    </li>
+                    <li>
+                        <a href="/goods_DS" class="block px-4 py-2 hover:bg-gray-100"
+                        >Dempster-Shafter</a
+                        >
+                    </li>
+                    <li>
+                        <a href="/goods_media" class="block px-4 py-2 hover:bg-gray-100">Media</a>
+                    </li>
+                </ul>
+            </div>
 
-						// Specify the method
-						method: 'POST',
-
-						// A JSON payload
-						body: JSON.stringify({
-							"idfonte": pippo
-						})
-					}).then(res => res.json()).then(data => mostra(data));
-
-					function mostra(data){
-					  var txt ="";
-					  txt+="<table  border=”1″ width=70%><tr bgcolor=”#ad93ab″ > <td > Informazione  </td> <td width=25%> Credibilità </td> </tr> "
-								for (x in data) {
-									txt +="<tr> <td>" + x + " </td> <td> " + data[x] +" </td> </tr> " ;
-								}
-
-								txt += " </table> </h1>";
-					document.getElementById("fonte_desiderata").innerHTML = txt;
-					}
-				</script>
-			{% endif %}
-		</center>
-		<script src="static\scripts\fonti.js"></script>
-    </body>
-	<footer class="bg-secondary footer mt-auto py-5">
-		<h5>2021</h2>
-	</footer>
+            <a
+                    href="/seleziona_caso"
+                    class="active:bg-red-200 inline-flex items-center justify-center whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-2 border-red-500 text-red-500 px-4 py-2 hover:bg-red-100"
+            >Cambia caso</a
+            >
+            <a
+                    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black text-white hover:bg-black/75 active:bg-black/50 px-4 py-2 mx-2 border-2 border-black hover:border-black/75 active:border-black/50"
+                    href="logout"
+            >
+                Logout
+            </a>
+        </nav>
+    </header>
+    <main class="flex-1 jhu py-6 px-4 md:px-6 lg:px-8 mx-auto">
+        <section class="w-full max-w-4xl">
+            <h1 class="text-4xl font-bold mb-4 text-center">
+                Fonti
+            </h1>
+            <div class="overflow-x-auto">
+                <table
+                        class="w-full table-auto border-collapse rounded-md border border-separate border-tools-table-outline border-gray-400 border-1 border-spacing-0"
+                >
+                    <thead class="bg-gray-200 rounded-t-md">
+                    <tr>
+                        <th
+                                class="border-b border-r border-gray-400 px-4 py-2 rounded-tl-md"
+                        >
+                            Nome fonte
+                        </th>
+                        <th class="border-b border-r border-gray-400 px-4 py-2">
+                            Attendibilità
+                        </th>
+                        <th class="border-b border-gray-400 px-4 py-2 rounded-tr-md">
+                            Azione
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="tabella-fonti-tbody" class="bg-white rounded-b-md">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section class="mt-4 hidden ---sezione-dettagli">
+            <h1 class="text-2xl font-bold mb-4 text-center" id="titolo-dettagli-fonte">
+            </h1>
+            <div class="overflow-x-auto">
+                <table
+                        class="w-full table-auto border-collapse rounded-md border border-separate border-tools-table-outline border-gray-400 border-1 border-spacing-0"
+                >
+                    <thead class="bg-gray-200 rounded-t-md">
+                    <tr>
+                        <th
+                                class="border-b border-r border-gray-400 px-4 py-2 rounded-tl-md"
+                        >
+                            Informazione fornita
+                        </th>
+                        <th class="border-b border-gray-400 px-4 py-2 rounded-tr-md">
+                            Credibilità
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="tabella-dettagli-tbody" class="bg-white rounded-b-md">
+                    </tbody>
+                </table>
+        </section>
+    </main>
+    <footer class="h-16 flex items-center justify-center border-t bg-white">
+        <p class="text-2xl text-gray-500">2024</p>
+    </footer>
+</div>
+<script defer src="../static/scripts/fonti.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+</body>
 </html>
