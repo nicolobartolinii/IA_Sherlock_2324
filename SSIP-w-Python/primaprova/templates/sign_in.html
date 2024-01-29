@@ -1,64 +1,73 @@
 <!DOCTYPE html>
-<html lang="it">
-	<head>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-		<title>Sherlock - Home</title>
-		<link rel="icon" href="https://www.seekpng.com/png/detail/527-5275313_app-icon-detective-conan-avatar.png" type = "image/x-icon">
-		<link href="{{ url_for('static',filename='css/styles.css')}}" rel="stylesheet" />
-		<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-	</head>
-	<nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-		<div>
-			<a class="navbar-brand" href="#page-top">Sherlock</a>
-		</div>
-		<div class="collapse navbar-collapse" id="navbarDropdown">
-			<ul class="navbar-nav ml-auto">
-			  <li class="nav-item">
-				<p><a class="nav-link" href="sign_in">Inserisci utente </a></p>
-			  </li>
-			  <li class="nav-item">
-				<p><a class="nav-link" href="delete_account">Cancella utente</a></p>
-			  </li>
-				<li class="nav-item">
-					<a class="font-weight-bold bg-primary text-white rounded btn btn-lg btn-success" role="button" href="logout">
-						Logout
-					</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
-	<body id="page-top">
-        <!-- Masthead-->
-        <header class="masthead bg-primary text-white text-center">
-          	<div class="container d-flex align-items-center flex-column">
-			<!-- Masthead Heading-->
-				<h1 class="masthead-heading text-uppercase mb-0">Sherlock</h1>
-				<!-- Icon Divider-->
-				<div class="divider-custom divider-light">
-					<div class="divider-custom-line"></div>
-					<div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-					<div class="divider-custom-line"></div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SHERLOCK - Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<div class="flex flex-col min-h-screen bg-gray-100">
+    <header class="flex items-center h-16 px-4 border-b bg-white">
+        <a
+                class="flex items-center gap-2 text-lg font-semibold md:text-base"
+                href="#"
+        >
+            <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-6 h-6"
+            >
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+            </svg>
+            <span>SHERLOCK</span>
+        </a>
+        <nav class="flex items-center ml-auto gap-5 text-md font-medium">
+            <a href="/delete_account" class="hover:underline">Elimina utente</a>
+            <a
+                    class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black text-white hover:bg-black/75 active:bg-black/50 px-4 py-2 mx-2 border-2 border-black hover:border-black/75 active:border-black/50"
+                    href="logout"
+            >
+                Logout
+            </a>
+        </nav>
+    </header>
+    <main class="flex-1 py-6 px-4 md:px-6 lg:px-8 flex items-center justify-center">
+        <section class="w-full max-w-md">
+            <h1 class="text-3xl font-bold mb-4 text-center">Inserisci un nuovo utente</h1>
+            <form method="POST" action="" class="grid gap-4 form-signin">
+                {{ form.hidden_tag() }}
 
-				</div>
-				{% if inserted == True %}
-					<p>Nuovo utente registrato correttamente</p>
-				{% elif invalid == True %}
-					<p>Utente già esistente</p>
-				{% endif %}
-				<form method="POST" action="" class="form-signin">
-					<h1 class="h3 mb-3 font-weight-normal">Inserisci un nuovo utente:</h1>
-					{{ form.hidden_tag() }}
-					 {{ form.username }} <br>
-					 {{ form.password }} <br>
-					 {{ form.submit }}
-				</form>
-          	</div>
-        </header>
-	</body>
-	<footer class="bg-secondary footer mt-auto py-5">
-		<h5>2021</h2>
-	</footer>
+                <div class="grid gap-2">
+                    {{ form.username.label(class_="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70") }}
+                    {{ form.username(id="username", class_="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", placeholder="Inserisci il nuovo nome utente", required=True) }}
+                </div>
+
+                <div class="grid gap-2">
+                    {{ form.password.label(class_="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70") }}
+                    {{ form.password(id="password", class_="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", placeholder="Inserisci la nuova password", required=True) }}
+                </div>
+
+                {{ form.submit(class_="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black text-white hover:bg-black/75 active:bg-black/50 h-10 px-4 py-2") }}
+            </form>
+
+            {% if inserted == True %}
+                <p class="text-emerald-600 text-lg-center font-light mt-2">Nuovo utente registrato correttamente.</p>
+            {% elif invalid == True %}
+                <p class="text-red-400 text-lg-center font-light mt-2">Nome utente già esistente.</p>
+            {% endif %}
+
+        </section>
+    </main>
+    <footer class="h-16 flex items-center justify-center border-t bg-white">
+        <p class="text-2xl text-gray-500">2024</p>
+    </footer>
+</div>
 </html>
