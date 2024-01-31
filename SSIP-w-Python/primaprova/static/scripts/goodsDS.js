@@ -55,7 +55,7 @@ fetch('/goodsjs')
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td class="border-b border-r border-gray-400 px-4 py-2">${key}</td>
-                        <td class="border-b border-gray-400 px-4 py-2">${value}</td>
+                        <td class="border-b border-gray-400 px-4 py-2">${value.toFixed(3)} (${(value * 100).toFixed(1)}%)</td>
                     `;
                     tbody.appendChild(row);
 
@@ -70,7 +70,7 @@ fetch('/goodsjs')
                     rowMedia.innerHTML = `
                         <tr class="bg-gray-100">
                             <td class="border-r border-gray-400 px-4 py-2 font-bold">Media Credibilità</td>
-                            <td class="border-gray-400 px-4 py-2 font-bold">${mediaCredibilita.toFixed(2)}</td>
+                            <td class="border-gray-400 px-4 py-2 font-bold">${mediaCredibilita.toFixed(3)} (${(mediaCredibilita * 100).toFixed(1)}%)</td>
                         </tr>
                     `;
                     tbody.appendChild(rowMedia);

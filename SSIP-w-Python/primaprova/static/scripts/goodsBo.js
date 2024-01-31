@@ -41,51 +41,51 @@ fetch("/numerogoodsBOjs")
 
             // Effettua la fetch per ottenere i dettagli di questo universo
             fetch('/goods_BOjs', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({'idgood': id})
-})
-    .then(res => res.json())
-    .then(details => {
-        console.log(details);
-        const keys = Object.keys(details);
-        const lastKeyIndex = keys.length ; // Indice dell'ultima chiave
-        let rows = "";
-        let totalCredibility = 0; // Inizializza una variabile per la somma delle credibilità
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({'idgood': id})
+            })
+                .then(res => res.json())
+                .then(details => {
+                    console.log(details);
+                    const keys = Object.keys(details);
+                    const lastKeyIndex = keys.length; // Indice dell'ultima chiave
+                    let rows = "";
+                    let totalCredibility = 0; // Inizializza una variabile per la somma delle credibilità
 
-        keys.forEach((key, index) => {
-            const credibility = details[key];
-            totalCredibility += credibility; // Aggiungi la credibilità corrente alla somma totale
-            const isLastKey = index === lastKeyIndex;
-            // Aggiungi le classi per il bordo solo se non è l'ultimo elemento
-            const borderClasses = isLastKey ? "" : "border-b";
+                    keys.forEach((key, index) => {
+                        const credibility = details[key];
+                        totalCredibility += credibility; // Aggiungi la credibilità corrente alla somma totale
+                        const isLastKey = index === lastKeyIndex;
+                        // Aggiungi le classi per il bordo solo se non è l'ultimo elemento
+                        const borderClasses = isLastKey ? "" : "border-b";
 
-            // Crea una nuova riga della tabella per ogni chiave
-            rows += `
-                <tr class="hover:bg-gray-100">
-                    <td class="${borderClasses} border-r border-gray-400 px-4 py-2 ${isLastKey ? 'rounded-bl-md' : ''}">${key}</td>
-                    <td class="${borderClasses} border-gray-400 px-2 py-2 ${isLastKey ? 'rounded-br-md' : ''}">${credibility}</td>
-                </tr>
-            `;
+                        // Crea una nuova riga della tabella per ogni chiave
+                        rows += `
+    <tr class="hover:bg-gray-100">
+        <td class="${borderClasses} border-r border-gray-400 px-4 py-2 ${isLastKey ? 'rounded-bl-md' : ''}">${key}</td>
+        <td class="${borderClasses} border-gray-400 px-2 py-2 ${isLastKey ? 'rounded-br-md' : ''}">${credibility.toFixed(3)} (${(credibility * 100).toFixed(1)}%)</td>
+    </tr>
+`;
 
-        });
+                    });
 
-        const media = totalCredibility / keys.length; // Calcola la media delle credibilità
-        // Aggiungi la riga per la media alla tabella
-        rows += `
-            <tr class="bg-gray-100">
-                <td class="border-r border-gray-400 px-4 py-2 rounded-bl-md">Media</td>
-                <td class="border-gray-400 px-2 py-2 ">${media.toFixed(2)}</td> <!-- Arrotonda la media a due cifre decimali -->
-            </tr>
-        `;
+                    const media = totalCredibility / keys.length; // Calcola la media delle credibilità
+                    // Aggiunge la riga per la media alla tabella
+                    rows += `
+    <tr class="bg-gray-100">
+        <td class="border-r border-gray-400 px-4 py-2 rounded-bl-md">Media</td>
+        <td class="border-gray-400 px-2 py-2 ">${media.toFixed(3)} (${(media * 100).toFixed(1)}%)</td>
+    </tr>
+`;
 
-        tbody.innerHTML = rows;
-    })
-    .catch(error => {
-        console.error('Error fetching details:', error);
-    });
+                    tbody.innerHTML = rows;
+                })
+                .catch(error => {
+                    console.error('Error fetching details:', error);
+                });
         });
     })
     .catch(error => {

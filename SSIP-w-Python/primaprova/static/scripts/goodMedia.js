@@ -60,7 +60,7 @@ fetch('/goodsMediajs')
                         rows += `
         <tr class="hover:bg-gray-100">
             <td class="${borderClasses} border-r border-gray-400 px-4 py-2 ${isLastKey ? 'rounded-bl-md' : ''}">${key}</td> <!-- Index + 1 come Case ID -->
-            <td class="${borderClasses} border-gray-400 px-2 py-2 ${isLastKey ? 'rounded-br-md' : ''}">${details[key]}</td>
+            <td class="${borderClasses} border-gray-400 px-2 py-2 ${isLastKey ? 'rounded-br-md' : ''}">${details[key].toFixed(3)}(${(details[key] * 100).toFixed(1)}%)</td>
         </tr>
     `;
                     });
