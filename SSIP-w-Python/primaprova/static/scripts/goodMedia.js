@@ -10,7 +10,7 @@ fetch('/goodsMediajs')
 
             // Crea un titolo per la tabella dell'universo
             const universeTitle = document.createElement('h3');
-            universeTitle.textContent = `Universo numero ${index + 1} - Media: ${media}`;
+            universeTitle.textContent = `Universo numero ${index + 1} - Media: ${media.toFixed(3)} (${(media * 100).toFixed(1)}%)`;
             universeTitle.className = 'text-2xl font-bold mb-4';
 
             // Crea la tabella per questo universo
@@ -45,30 +45,38 @@ fetch('/goodsMediajs')
                 },
                 body: JSON.stringify({'idgood': id})
             })
-                .then(res => res.json())
-                .then(details => {
-                    console.log(details);
-                    const keys = Object.keys(details);
-                    const lastKeyIndex = keys.length - 1; // Indice dell'ultima chiave
-                    let rows = "";
-                    keys.forEach((key, index) => {
-                        const isLastKey = index === lastKeyIndex;
-                        // Aggiungi le classi per il bordo solo se non è l'ultimo elemento
-                        const borderClasses = isLastKey ? "" : "border-b";
+            .then(res => res.json())
+            .then(details => {
+                let rows = "";
+                const keys = Object.keys(details); // Aggiunta della dichiarazione di 'keys'
 
-                        // Crea una nuova riga della tabella per ogni chiave
-                        rows += `
-        <tr class="hover:bg-gray-100">
-            <td class="${borderClasses} border-r border-gray-400 px-4 py-2 ${isLastKey ? 'rounded-bl-md' : ''}">${key}</td> <!-- Index + 1 come Case ID -->
-            <td class="${borderClasses} border-gray-400 px-2 py-2 ${isLastKey ? 'rounded-br-md' : ''}">${details[key].toFixed(3)}(${(details[key] * 100).toFixed(1)}%)</td>
-        </tr>
-    `;
-                    });
-                    tbody.innerHTML = rows;
-                })
-                .catch(error => {
-                    console.error('Error fetching details:', error);
+                keys.forEach((key, index) => {
+                    const credibility = details[key];
+                    const credibilityPercentage = (credibility * 100).toFixed(1);
+                    let bgColorClass = '';
+                    if (credibilityPercentage >= 75) {
+                        bgColorClass = 'bg-emerald-300';
+                    } else if (credibilityPercentage >= 50) {
+                        bgColorClass = 'bg-blue-200';
+                    } else if (credibilityPercentage >= 25) {
+                        bgColorClass = 'bg-yellow-200';
+                    } else {
+                        bgColorClass = 'bg-red-200';
+                    }
+
+                    // Crea una nuova riga della tabella per ogni chiave
+                    rows += `
+                        <tr class="${bgColorClass} hover:bg-gray-100">
+                            <td class="border-r border-gray-400 px-4 py-2">${key}</td>
+                            <td class="border-gray-400 px-4 py-2">${credibility.toFixed(3)} (${credibilityPercentage}%)</td>
+                        </tr>
+                    `;
                 });
+                tbody.innerHTML = rows;
+            })
+            .catch(error => {
+                console.error('Error fetching details:', error);
+            });
         });
     })
     .catch(error => {

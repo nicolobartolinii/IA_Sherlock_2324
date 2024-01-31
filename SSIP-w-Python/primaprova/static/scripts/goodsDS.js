@@ -17,7 +17,7 @@ fetch('/goodsjs')
             const table = document.createElement('table');
             table.className = 'w-full table-auto border-collapse rounded-md border border-separate border-gray-400';
 
-            // Aggiungi intestazione alla tabella
+            // Aggiunge intestazione alla tabella
             const thead = document.createElement('thead');
             thead.className = 'bg-gray-200';
             thead.innerHTML = `
@@ -45,53 +45,54 @@ fetch('/goodsjs')
                 },
                 body: JSON.stringify({'idgood': id})
             })
-            .then(res => res.json())
-            .then(details => {
-                let totalCredibility = 0;
-                let numberOfDetails = 0;
+                .then(res => res.json())
+                .then(details => {
+                    let totalCredibility = 0;
+                    let numberOfDetails = 0;
 
-                // Crea le righe della tabella per ogni informazione e credibilità
-                for (const [key, value] of Object.entries(details)) {
-                    const credibilityPercentage = (value * 100).toFixed(1);
-                    let bgColorClass = '';
-                    if (credibilityPercentage >= 75) {
-                        bgColorClass = 'bg-emerald-300';
-                    } else if (credibilityPercentage >= 50) {
-                        bgColorClass = 'bg-blue-200';
-                    } else if (credibilityPercentage >= 25) {
-                        bgColorClass = 'bg-yellow-200';
-                    } else {
-                        bgColorClass = 'bg-red-200';
+                    // Crea le righe della tabella per ogni informazione e credibilità
+                    for (const [key, value] of Object.entries(details)) {
+                        const credibilityPercentage = (value * 100).toFixed(1);
+                        let bgColorClass = '';
+                        let hoverClass = 'hover:bg-gray-100'; // Aggiungi la classe di hover
+                        if (credibilityPercentage >= 75) {
+                            bgColorClass = 'bg-emerald-300';
+                        } else if (credibilityPercentage >= 50) {
+                            bgColorClass = 'bg-blue-200';
+                        } else if (credibilityPercentage >= 25) {
+                            bgColorClass = 'bg-yellow-200';
+                        } else {
+                            bgColorClass = 'bg-red-200';
+                        }
+
+                        const row = document.createElement('tr');
+                        row.className = `${bgColorClass} ${hoverClass}`; // Combina le classi di sfondo e hover
+                        row.innerHTML = `
+        <td class="border-r border-gray-400 px-4 py-2">${key}</td>
+        <td class="border-gray-400 px-4 py-2">${value.toFixed(3)} (${credibilityPercentage}%)</td>
+    `;
+                        tbody.appendChild(row);
+
+                        totalCredibility += value; // Aggiungi al totale
+                        numberOfDetails++;
                     }
 
-                    const row = document.createElement('tr');
-                    row.className = bgColorClass; // Aggiungi la classe di colore di sfondo
-                    row.innerHTML = `
-                        <td class="border-r border-gray-400 px-4 py-2">${key}</td>
-                        <td class="border-gray-400 px-4 py-2">${value.toFixed(3)} (${credibilityPercentage}%)</td>
-                    `;
-                    tbody.appendChild(row);
-
-                    totalCredibility += value; // Aggiungi al totale
-                    numberOfDetails++;
-                }
-
-                // Calcola e mostra la media delle credibilità
-                if (numberOfDetails > 0) {
-                    const mediaCredibilita = totalCredibility / numberOfDetails;
-                    const mediaCredibilitaPercentage = (mediaCredibilita * 100).toFixed(1);
-                    const rowMedia = document.createElement('tr');
-                    rowMedia.className = 'bg-gray-100'; // Sfondo per la riga della media
-                    rowMedia.innerHTML = `
+                    // Calcola e mostra la media delle credibilità
+                    if (numberOfDetails > 0) {
+                        const mediaCredibilita = totalCredibility / numberOfDetails;
+                        const mediaCredibilitaPercentage = (mediaCredibilita * 100).toFixed(1);
+                        const rowMedia = document.createElement('tr');
+                        rowMedia.className = 'bg-gray-100'; // Sfondo per la riga della media
+                        rowMedia.innerHTML = `
                         <td class="border-r border-gray-400 px-4 py-2 font-bold">Media Credibilità</td>
                         <td class="border-gray-400 px-4 py-2 font-bold">${mediaCredibilita.toFixed(3)} (${mediaCredibilitaPercentage}%)</td>
                     `;
-                    tbody.appendChild(rowMedia);
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching details:', error);
-            });
+                        tbody.appendChild(rowMedia);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching details:', error);
+                });
         });
     })
     .catch(error => {

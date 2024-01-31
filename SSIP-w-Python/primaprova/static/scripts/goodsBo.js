@@ -18,7 +18,7 @@ fetch("/numerogoodsBOjs")
             const table = document.createElement('table');
             table.className = 'w-full table-auto border-collapse rounded-md border border-separate border-gray-400';
 
-            // Aggiungi intestazione alla tabella
+            // Aggiunge intestazione alla tabella
             const thead = document.createElement('thead');
             thead.className = 'bg-gray-200';
             thead.innerHTML = `
