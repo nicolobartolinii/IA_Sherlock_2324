@@ -16,15 +16,15 @@ fetch("/numerogoodsBOjs")
 
             // Crea la tabella per questo universo
             const table = document.createElement('table');
-            table.className = 'w-full table-auto border-collapse rounded-md border border-separate border-gray-400';
+            table.className = 'w-full table-auto border-collapse rounded-md border border-separate border-tools-table-outline border-gray-400 border-1 border-spacing-0';
 
             // Aggiunge intestazione alla tabella
             const thead = document.createElement('thead');
             thead.className = 'bg-gray-200';
             thead.innerHTML = `
                 <tr>
-                    <th class="border-b border-r border-gray-400 px-4 py-2">Informazione</th>
-                    <th class="border-b border-gray-400 px-4 py-2">Credibilità</th>
+                    <th class="border-b border-r border-gray-400 px-4 py-2 rounded-tl-md">Informazione</th>
+                    <th class="border-b border-gray-400 px-4 py-2 rounded-tr-md">Credibilità</th>
                 </tr>
             `;
 
@@ -55,24 +55,23 @@ fetch("/numerogoodsBOjs")
                     Object.entries(details).forEach(([key, credibility], index) => {
                         totalCredibility += credibility; // Aggiungi la credibilità corrente alla somma totale
                         const isLastKey = index === Object.keys(details).length - 1;
-                        const borderClasses = isLastKey ? "" : "border-b";
                         const credibilityPercentage = (credibility * 100).toFixed(1);
                         let bgColorClass = '';
                         if (credibilityPercentage >= 75) {
-                            bgColorClass = 'bg-emerald-300';
+                            bgColorClass = 'bg-emerald-300 hover:bg-emerald-400';
                         } else if (credibilityPercentage >= 50) {
-                            bgColorClass = 'bg-blue-200';
+                            bgColorClass = 'bg-blue-200 hover:bg-blue-300';
                         } else if (credibilityPercentage >= 25) {
-                            bgColorClass = 'bg-yellow-200';
+                            bgColorClass = 'bg-yellow-200 hover:bg-yellow-300';
                         } else {
-                            bgColorClass = 'bg-red-200';
+                            bgColorClass = 'bg-red-200 hover:bg-red-300';
                         }
 
                         // Crea una nuova riga della tabella per ogni chiave
                         rows += `
                             <tr class="${bgColorClass} hover:bg-gray-100">
-                                <td class="${borderClasses} border-r border-gray-400 px-4 py-2">${key}</td>
-                                <td class="${borderClasses} border-gray-400 px-2 py-2">${credibility.toFixed(3)} (${credibilityPercentage}%)</td>
+                                <td class="border-b border-r border-gray-400 px-4 py-2">${key}</td>
+                                <td class="border-b border-gray-400 px-2 py-2">${credibility.toFixed(3)} (${credibilityPercentage}%)</td>
                             </tr>
                         `;
                     });
@@ -80,9 +79,9 @@ fetch("/numerogoodsBOjs")
                     const media = totalCredibility / Object.keys(details).length; // Calcola la media delle credibilità
                     // Aggiunge la riga per la media alla tabella
                     rows += `
-                        <tr class="bg-gray-100">
+                        <tr class="bg-gray-100 hover:bg-gray-200">
                             <td class="border-r border-gray-400 px-4 py-2 rounded-bl-md">Media</td>
-                            <td class="border-gray-400 px-2 py-2 ">${media.toFixed(3)} (${(media * 100).toFixed(1)}%)</td>
+                            <td class="border-gray-400 px-2 py-2 rounded-br-md">${media.toFixed(3)} (${(media * 100).toFixed(1)}%)</td>
                         </tr>
                     `;
 

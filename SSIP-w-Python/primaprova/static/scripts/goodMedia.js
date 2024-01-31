@@ -15,15 +15,15 @@ fetch('/goodsMediajs')
 
             // Crea la tabella per questo universo
             const table = document.createElement('table');
-            table.className = 'w-full table-auto border-collapse rounded-md border border-separate border-gray-400';
+            table.className = 'w-full table-auto border-collapse rounded-md border border-separate border-tools-table-outline border-gray-400 border-1 border-spacing-0';
 
             // Aggiungi intestazione alla tabella
             const thead = document.createElement('thead');
-            thead.className = 'bg-gray-200';
+            thead.className = 'bg-gray-200 rounded-md';
             thead.innerHTML = `
                 <tr>
-                    <th class="border-b border-r border-gray-400 px-4 py-2">Informazione</th>
-                    <th class="border-b border-gray-400 px-4 py-2">Credibilità</th>
+                    <th class="border-b border-r border-gray-400 px-4 py-2 rounded-tl-md">Informazione</th>
+                    <th class="border-b border-gray-400 px-4 py-2 rounded-tr-md">Credibilità</th>
                 </tr>
             `;
 
@@ -55,20 +55,22 @@ fetch('/goodsMediajs')
                     const credibilityPercentage = (credibility * 100).toFixed(1);
                     let bgColorClass = '';
                     if (credibilityPercentage >= 75) {
-                        bgColorClass = 'bg-emerald-300';
+                        bgColorClass = 'bg-emerald-300 hover:bg-emerald-400';
                     } else if (credibilityPercentage >= 50) {
-                        bgColorClass = 'bg-blue-200';
+                        bgColorClass = 'bg-blue-200 hover:bg-blue-300';
                     } else if (credibilityPercentage >= 25) {
-                        bgColorClass = 'bg-yellow-200';
+                        bgColorClass = 'bg-yellow-200 hover:bg-yellow-300';
                     } else {
-                        bgColorClass = 'bg-red-200';
+                        bgColorClass = 'bg-red-200 hover:bg-red-300';
                     }
+
+                    const isLastKey = index === keys.length - 1;
 
                     // Crea una nuova riga della tabella per ogni chiave
                     rows += `
-                        <tr class="${bgColorClass} hover:bg-gray-100">
-                            <td class="border-r border-gray-400 px-4 py-2">${key}</td>
-                            <td class="border-gray-400 px-4 py-2">${credibility.toFixed(3)} (${credibilityPercentage}%)</td>
+                        <tr class="${bgColorClass}">
+                            <td class="border-r border-gray-400 px-4 py-2 ${isLastKey ? 'rounded-bl-md' : 'border-b'}">${key}</td>
+                            <td class="border-gray-400 px-4 py-2 ${isLastKey ? 'rounded-br-md' : 'border-b'}">${credibility.toFixed(3)} (${credibilityPercentage}%)</td>
                         </tr>
                     `;
                 });

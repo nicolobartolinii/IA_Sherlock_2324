@@ -15,15 +15,15 @@ fetch('/goodsjs')
 
             // Crea la tabella per questo universo
             const table = document.createElement('table');
-            table.className = 'w-full table-auto border-collapse rounded-md border border-separate border-gray-400';
+            table.className = 'w-full table-auto border-collapse rounded-md border border-separate border-tools-table-outline border-gray-400 border-1 border-spacing-0';
 
             // Aggiunge intestazione alla tabella
             const thead = document.createElement('thead');
             thead.className = 'bg-gray-200';
             thead.innerHTML = `
                 <tr>
-                    <th class="border-b border-r border-gray-400 px-4 py-2">Informazione</th>
-                    <th class="border-b border-gray-400 px-4 py-2">Credibilità</th>
+                    <th class="border-b border-r border-gray-400 px-4 py-2 rounded-tl-md">Informazione</th>
+                    <th class="border-b border-gray-400 px-4 py-2 rounded-tr-md">Credibilità</th>
                 </tr>
             `;
 
@@ -54,22 +54,22 @@ fetch('/goodsjs')
                     for (const [key, value] of Object.entries(details)) {
                         const credibilityPercentage = (value * 100).toFixed(1);
                         let bgColorClass = '';
-                        let hoverClass = 'hover:bg-gray-100'; // Aggiungi la classe di hover
                         if (credibilityPercentage >= 75) {
-                            bgColorClass = 'bg-emerald-300';
+                            bgColorClass = 'bg-emerald-300 hover:bg-emerald-400';
                         } else if (credibilityPercentage >= 50) {
-                            bgColorClass = 'bg-blue-200';
+                            bgColorClass = 'bg-blue-200 hover:bg-blue-300';
                         } else if (credibilityPercentage >= 25) {
-                            bgColorClass = 'bg-yellow-200';
+                            bgColorClass = 'bg-yellow-200 hover:bg-yellow-300';
                         } else {
-                            bgColorClass = 'bg-red-200';
+                            bgColorClass = 'bg-red-200 hover:bg-red-300';
                         }
 
+
                         const row = document.createElement('tr');
-                        row.className = `${bgColorClass} ${hoverClass}`; // Combina le classi di sfondo e hover
+                        row.className = `${bgColorClass}`; // Combina le classi di sfondo e hover
                         row.innerHTML = `
-        <td class="border-r border-gray-400 px-4 py-2">${key}</td>
-        <td class="border-gray-400 px-4 py-2">${value.toFixed(3)} (${credibilityPercentage}%)</td>
+        <td class="border-b border-r border-gray-400 px-4 py-2">${key}</td>
+        <td class="border-b border-gray-400 px-4 py-2">${value.toFixed(3)} (${credibilityPercentage}%)</td>
     `;
                         tbody.appendChild(row);
 
@@ -82,10 +82,10 @@ fetch('/goodsjs')
                         const mediaCredibilita = totalCredibility / numberOfDetails;
                         const mediaCredibilitaPercentage = (mediaCredibilita * 100).toFixed(1);
                         const rowMedia = document.createElement('tr');
-                        rowMedia.className = 'bg-gray-100'; // Sfondo per la riga della media
+                        rowMedia.className = 'bg-gray-100 hover:bg-gray-200'; // Sfondo per la riga della media
                         rowMedia.innerHTML = `
-                        <td class="border-r border-gray-400 px-4 py-2 font-bold">Media Credibilità</td>
-                        <td class="border-gray-400 px-4 py-2 font-bold">${mediaCredibilita.toFixed(3)} (${mediaCredibilitaPercentage}%)</td>
+                        <td class="border-r border-gray-400 px-4 py-2 font-bold rounded-bl-md">Media Credibilità</td>
+                        <td class="border-gray-400 px-4 py-2 font-bold rounded-br-md">${mediaCredibilita.toFixed(3)} (${mediaCredibilitaPercentage}%)</td>
                     `;
                         tbody.appendChild(rowMedia);
                     }
